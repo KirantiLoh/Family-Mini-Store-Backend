@@ -25,7 +25,7 @@ def products_view(request):
 @api_view(['GET'])
 def filtered_product_view(request, category):
     try:
-        category = Category.objects.get(name=category)
+        category = Category.objects.get(slug=category)
         product = Product.objects.filter(category=category)
         serializer = ProductSerializer(product, many=True)
         return Response(serializer.data)
