@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(null=False, unique = True)
+    slug = models.SlugField(null=False, unique = True, default='')
 
     class Meta:
         verbose_name_plural = "Categories"
