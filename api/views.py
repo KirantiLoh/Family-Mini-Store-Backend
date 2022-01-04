@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import status
 from product.models import Category, Product
 from .serializers import ProductSerializer, CategorySerializer
 from django.core.exceptions import ObjectDoesNotExist
@@ -29,7 +30,7 @@ def filtered_product_view(request, category):
         serializer = ProductSerializer(product, many=True)
         return Response(serializer.data)
     except ObjectDoesNotExist:
-        return Response({'message':"There's no such category"})
+        return Response({'message':"There's no such category"}, status = status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def categories_view(request):
