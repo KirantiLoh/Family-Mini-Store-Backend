@@ -23,6 +23,15 @@ def products_view(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def search_result(request, name):
+    products = Product.objects.filter(name__icontains = name)
+    if products.exists():
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({'message':"Produk yang anda cari tak ada"}, status = status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
 def filtered_product_view(request, category):
     try:
         category = Category.objects.get(slug=category)
@@ -30,7 +39,7 @@ def filtered_product_view(request, category):
         serializer = ProductSerializer(product, many=True)
         return Response(serializer.data)
     except ObjectDoesNotExist:
-        return Response({'message':"There's no such category"}, status = status.HTTP_404_NOT_FOUND)
+        return Response({'message':"Tak ada kategori itu"}, status = status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def categories_view(request):
