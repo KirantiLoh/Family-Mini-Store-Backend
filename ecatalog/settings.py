@@ -154,6 +154,7 @@ cloudinary.config(
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
   'http://localhost:3000',
+  'https://31a7-180-243-9-229.ngrok.io',
 )
 
 LOGGING = {
